@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: cf6e28b38048ee643af15010406c4c1a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tapeScript: {instanceID: 0}
+  - font: {fileID: 2800000, guid: 796278bf59e4fa2419e64da3415c3990, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
