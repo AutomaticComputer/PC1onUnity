@@ -1323,12 +1323,7 @@ MonoBehaviour:
     type: 3}
   font: {fileID: 2800000, guid: 7eddd21c68eb98c418ee0e51959de975, type: 3}
   textAssets:
-  - {fileID: 4900000, guid: 02c5c3d5d40754f40a859b1535b62077, type: 3}
-  - {fileID: 4900000, guid: bb918ea8e6b123149aecb62d6698e9ca, type: 3}
-  - {fileID: 4900000, guid: ac1ac5c8b7c1aac40ab9f7214681bb29, type: 3}
-  - {fileID: 4900000, guid: 1bc06b01454764846825e5a641eb4ed8, type: 3}
-  - {fileID: 4900000, guid: 41c0a013668da834aa09d762ee7e5231, type: 3}
-  - {fileID: 4900000, guid: ad6a51469ad483748909d6d3ca76532d, type: 3}
+  - {fileID: 4900000, guid: 37a4fc20f6cc4d9419c4754ebd0f77e6, type: 3}
 --- !u!4 &772678958
 Transform:
   m_ObjectHideFlags: 0

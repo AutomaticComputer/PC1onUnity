@@ -1,6 +1,8 @@
 # PC-1 on Unity
 
 Unity 上で動く、パラメトロン計算機 PC-1 のシミュレーターです。
+見た目はあまり実物に忠実ではないと思います。
+速度はフレーム単位で正確になるよう努めました。
 
 ## パラメトロン計算機 PC-1 について
 
@@ -16,6 +18,8 @@ Unity 上で動く、パラメトロン計算機 PC-1 のシミュレーター�
 ビルドするか、[WebGL版](https://automaticcomputer.github.io/PC1onUnity/PC1onUnity_WebGL/index.html)を試してみてください。
 Unity Editor 上であれば、Inspector でレジスターやメモリの内容を
 見ることができます。
+
+矢印キーとPgUp, PgDn で視点の移動ができます。
 
 デモとして Mandelblot 集合(1964 年には発見されていませんでしたが…)
 の描画プログラムを用意しました。
@@ -33,12 +37,20 @@ Unity Editor 上であれば、Inspector でレジスターやメモリの内容
 ただし、最後の区切りは 63(backspace)を打ちます。
 ([mandelblot.ptw](Assets/Tapes/mandelblot.ptw.txt) が参考になるでしょう。)
 
-通常はアセンブリ言語のようなものでプログラムを書き、
+通常はアセンブリ言語のようなものでプログラムを書き
+(例としては、mandelblot.ptr をテレプリンタで印刷してみてください)、
 イニシャルオーダー "R0" でプログラムを読み込みます。
 和田先生のページの[R0(単独版)](https://www.iijlab.net/~ew/pc1/R0.html)
 を利用して、
 Factorization Program, e1000桁の計算、Lucas Lehmer Test が
 動作することを確認しました。
+
+
+## 謝辞
+
+作成にあたっては、和田先生のページの各種資料および
+高橋秀俊編「パラメトロン計算機」(岩波書店)に大変お世話になりました。
+
 
 ## 関連
 
