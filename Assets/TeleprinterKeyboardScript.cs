@@ -15,7 +15,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
     const float KeyW = 0.015f, KeyH = 0.015f, KeyY = 0.0125f,
         KeyDownY = 0.0075f, CollideZ = 0.015f,
         KeyboardStartX = -0.12f, KeyboardStartZ = 0.04f;
-    const int runoutCode = 64;
+    const int blankCode = 64;
 
     private char[] keyCharShift0, keyCharShift1;
     private int[] keyX, keyZ, keyWide, keyFont, keyShift0, keyShift1;
@@ -59,7 +59,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
         };
         keyShift0 = new int[]
         {
-        57, 48, 42, 33, 53, 60, 44, 35, 45, 56, 34, 55, 63, runoutCode, 
+        57, 48, 42, 33, 53, 60, 44, 35, 45, 56, 34, 55, 63, blankCode, 
         29, 25, 16, 10, 1, 21, 28, 12, 3, 13, 32,
         8, 24, 20, 18, 22, 11, 5, 26, 30, 9, 40, 47, 2, 
         17, 23, 14, 15, 19, 6, 7, 38, 39, 
@@ -67,7 +67,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
         };
         keyShift1 = new int[]
         {
-        57, 48, 42, 33, 53, 60, 44, 35, 45, 56, 34, 55, 63, runoutCode, 
+        57, 48, 42, 33, 53, 60, 44, 35, 45, 56, 34, 55, 63, blankCode, 
         29, 25, 16, 10, 1, 21, 28, 12, 3, 13, 32,
         8, 24, 20, 18, 22, 11, 5, 26, 30, 9, 40, 47, 2, 
         17, 23, 14, 15, 19, 6, 7, 38, 39, 
@@ -151,7 +151,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
                     c = (byte)keyShift1[k];
             }
         }
-        if (c == runoutCode) // runout
+        if (c == blankCode) // blank
             c = 0;
     }
 
@@ -219,7 +219,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
                 c = 0xff;
         }
  */
-        if (c == runoutCode) // runout
+        if (c == blankCode) // blank
         {
             c = 0;
         }
