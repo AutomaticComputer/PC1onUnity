@@ -1324,6 +1324,8 @@ MonoBehaviour:
   font: {fileID: 2800000, guid: 7eddd21c68eb98c418ee0e51959de975, type: 3}
   textAssets:
   - {fileID: 4900000, guid: 37a4fc20f6cc4d9419c4754ebd0f77e6, type: 3}
+  - {fileID: 4900000, guid: e64c78daef9d2d645ae625ec85d4bceb, type: 3}
+  - {fileID: 4900000, guid: c88e632fa897c4b41bc012e062546d3a, type: 3}
   - {fileID: 4900000, guid: 1aa8e091e341abc4ea5f2c3704c42081, type: 3}
 --- !u!4 &772678958
 Transform:
