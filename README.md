@@ -69,8 +69,8 @@ See [R0.ptw](Assets/Tapes/R0.ptw.txt).
 ## Acknowledgments
 
 The documents by Dr. Wada and the book 
-"Parametron computer" (in Japanese, Iwanami, edited by Hidetoshi Takahashi)
-were essential in developing the simulator. 
+"Parametron computer" (in Japanese, Iwanami, edited by Hidetosi Takahasi)
+were essential in developing this simulator. 
 
 The files R0.ptw, R0.ptr were typed from 
 [R0](https://www.iijlab.net/~ew/pc1/R0.html), 
