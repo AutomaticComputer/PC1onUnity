@@ -77,6 +77,10 @@ The files R0.ptw, R0.ptr were typed from
 [1000 digits of e](https://www.iijlab.net/~ew/pc1/e1000.html). 
 I thank Dr. Wada for permission. 
 
+(Ver. 0.2.3) 
+The behavior of Initial loader and the tape format 
+were corrected in accordance with Dr. Wada's comments. 
+
 
 ## Related
 

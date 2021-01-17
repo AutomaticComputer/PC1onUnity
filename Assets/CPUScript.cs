@@ -125,14 +125,14 @@ void Start()
                 }
                 if (initialLoadCounter < 0) 
                 {
-                    if (a == 0 || a == initialLoadEndChar) 
+                    if (a != 0 && a != initialLoadEndChar) 
                     {
-                        continue;
+                        initialLoadCounter = 0;
+                        initialLoadChars = 0;
                     }
-                    initialLoadCounter = 0;
-                    initialLoadChars = 1;
+                    continue;
                 } 
-                if (initialLoadChars == 0) {
+                if (initialLoadChars == 6) {
                     if (a == initialLoadEndChar) {
                         isInitialLoad = false;
                         break;
@@ -140,16 +140,17 @@ void Start()
                 }
                 else
                 {
-                    initialLoadBuffer[initialLoadChars - 1] = a;
-                    if (initialLoadChars == 6) 
+                    initialLoadBuffer[initialLoadChars] = a;
+                    if (initialLoadChars == 5) 
                     {
                         mainStore[initialLoadCounter] = 
-                            initialLoadBuffer[3] 
-                            | (initialLoadBuffer[4] << 6) 
-                            | (initialLoadBuffer[5] << 12);
+                            (initialLoadBuffer[0] << 12) 
+                            | (initialLoadBuffer[1] << 6) 
+                            | initialLoadBuffer[2];
                         mainStore[initialLoadCounter + 1] = 
-                            initialLoadBuffer[0] | (initialLoadBuffer[1] << 6) 
-                            | (initialLoadBuffer[2] << 12);
+                            (initialLoadBuffer[3] << 12)
+                            | (initialLoadBuffer[4] << 6) 
+                            | initialLoadBuffer[5] ;
                         regA = (regA ^ 
                             (((UInt64) mainStore[initialLoadCounter] << 18) | 
                               (UInt64) mainStore[initialLoadCounter + 1]));

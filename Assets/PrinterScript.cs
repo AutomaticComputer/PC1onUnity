@@ -135,4 +135,9 @@ public class PrinterScript : MonoBehaviour
     {
         return tapeReadScript.read();
     }
+
+    public void punchForced(byte b)
+    {
+        tapePunchScript.punchForced(b);
+    }
 }
