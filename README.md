@@ -64,7 +64,10 @@ You can also prepare a tape for "initial load" using the teleprinter
 (though it takes labor). 
 See [R0.ptw](Assets/Tapes/R0.ptw.txt).
 
+## Unimplemented features
 
+The "E" order, "Y" order and the break-point feature 
+are not yet implemented. 
 
 ## Acknowledgments
 
