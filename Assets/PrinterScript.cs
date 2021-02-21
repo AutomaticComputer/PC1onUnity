@@ -95,8 +95,8 @@ public class PrinterScript : MonoBehaviour
 
         if (punchCode != 0xff)
         {
-            if (punchCode == bsCode)
-                tapePunchScript.rewind();
+//            if (punchCode == bsCode)
+//                tapePunchScript.rewind();
             if (tapePunchScript.punch(punchCode))
                 punchCode = 0xff;
         }

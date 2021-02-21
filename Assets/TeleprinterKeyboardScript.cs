@@ -76,7 +76,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
         keyCharShift0 = new char[]
         {
             '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', '|', 
-            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '\x1b',
+            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[',
             '\t', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '+', ':', '\r',
             'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', 
             ' '
@@ -84,7 +84,7 @@ public class TeleprinterKeyboardScript : MonoBehaviour
         keyCharShift1 = new char[]
         {
             '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', '|', 
-            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '\x1b',
+            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[',
             '\t', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', '+', ':', '\r',
             'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', 
             ' '

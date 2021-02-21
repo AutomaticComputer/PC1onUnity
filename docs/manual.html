@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title> PC-1 シミュレータ 操作マニュアル </title>
+
+</head>
+
+<body>
+
+    <h1> PC-1 シミュレータ 操作マニュアル </h1>
+    <h2> 全般的操作 </h2>
+    <p>
+        矢印キーおよび Page Up, Page Down でカメラを移動できる。
+        その他のキーはテレプリンターへの入力となる(後述)。    
+    </p>
+    <p>
+        PC-1 本体のボタン、テレプリンターのボタン、テレプリンター上の
+        キーボードはマウスクリックまたはタッチにより操作できる(後述)。
+    </p>
+
+    <p>
+        簡単なプログラムの入力例については、
+        <a href="sample.html"> こちら </a> を参照。
+    </p>
+    
+    <h2> テレプリンターの操作 </h2>
+
+    注意: 
+    PC-1 の入出力には、当時一般的に用いられた印刷電信機を
+    用いたとのことである。
+    このシミュレーターのテレプリンターは、多くの点で実物に忠実でない。
+    <ul>
+        <li>
+            このシミュレーターではプリンターの印字を
+            ドットマトリクス風に行っているが、当時はおそらくそうでない。
+        </li>
+        <li>
+            印字が大文字か小文字か、一行が何文字か、等も不明(調べていない)。
+        </li>
+        <li>
+            全体の形状(特にテープ装置の形、テープの配置・向きなど)は
+            まったく実物と異なると思われる。        
+        </li>
+        <li>
+            キーボード配列も(ほぼ確実に)正しくない。
+            (同じキーを Letter shift, Figure shift で切り替えたものと思われる。)
+        </li>
+        <li>
+            テープには鑽孔せず印刷している(鑽孔は大変そうなので)。
+        </li>
+    </ul>
+
+    <h3> 印字機 </h3>
+    <p>
+        "ECHO" ボタンにより、印字のオン・オフを切り替える。
+    </p>
+    <p>
+        "CUT" ボタンにより印字された内容を画像として保存する。
+        ファイル名は日時からつけられる。
+        保存フォルダは、Windows の場合
+        "(ユーザーのディレクトリ)\AppData\LocalLow\AutomaticComputer\PC-1 on Unity\Printouts\"
+    </p>
+
+    <h3> 紙テープ装置 </h3>
+    左側の紙テープ装置は紙テープ読取機、左側のテープ装置は紙テープ鑽孔機である。
+    なお、紙テープの各行には 6 ビットからなる符号が
+    左をMSBとして鑽孔されている。
+
+    <h4> 紙テープ読取機 </h4>
+    <p>
+        "LOAD" ボタンを押すと紙テープ一覧が現れるので、どれかを選択すると
+        読取機にセットされる。
+        読取機にセットされた紙テープは、PC-1 から読み込むこと、
+        およびテレプリンターで読み取って印刷・鑽孔することができる。
+        PC-1 での利用については、PC-1 本体の操作の項参照。
+    </p>
+    <p>
+        "READ" ボタンを押すと、テープの読み込みがオン・オフされる。
+        読み込まれた内容は、("ECHO" が有効であれば)印字され、
+        ("PUNCH" が有効であれば)鑽孔される。
+    </p>
+    <p>
+        "READ ONE" ボタンを押すと、テープから一文字読み込ませる。
+        "SKIP" ボタンを押すと、テープを一文字分送る。        
+    </p>
+
+    <h4> 紙テープ鑽孔機 </h4>
+        <p>
+            "PUNCH" ボタンにより、鑽孔のオン・オフを切り替える。
+        </p>
+        <p>
+            "REW" ボタンを押すと、テープを一文字分戻す。        
+        </p>
+        <p>
+            "SAVE" ボタンによりテープを保存する。
+            ファイル名は日時からつけられる。
+            保存フォルダは、Windows の場合
+            "(ユーザーのディレクトリ)\AppData\LocalLow\AutomaticComputer\PC-1 on Unity\Tapes\"
+            ファイル名を編集する機能は付けていないが、
+            Windows であればエクスプローラーなどで変更することができる。
+            "LOAD" および "SAVE" の直後でなければ安全と思われる。
+        </p>
+    
+    <h3> キーボードの操作 </h3>
+
+    <p>
+        以下の表は、利用できる文字、テレプリンターおよびPC-1でのコード、
+        物理キーボード上のキーの対応を示す。    
+    </p>
+    <p>
+        改行には CR と LF(物理キーボードでは Enter, Tab)を両方入力する。
+        (これが正しいのかどうかは不明。)
+    </p>
+
+    <table border=0 cellspacing=16>
+        <td>
+        <table border>
+            <tr>
+                <th> 文字 </th> <th> コード </th> <th> キー </th> 
+            </tr>
+            <tr>
+                <td> A </td> <td> 24 </td> <td> A </td>
+            </tr>
+            <tr>
+                <td> B </td> <td> 19 </td> <td> B </td>
+            </tr>
+            <tr>
+                <td> C </td> <td> 14 </td> <td> C </td>
+            </tr>
+            <tr>
+                <td> D </td> <td> 18 </td> <td> D </td>
+            </tr>
+            <tr>
+                <td> E </td> <td> 16 </td> <td> E </td>
+            </tr>
+            <tr>
+                <td> F </td> <td> 22 </td> <td> F </td>
+            </tr>
+            <tr>
+                <td> G </td> <td> 11 </td> <td> G </td>
+            </tr>
+            <tr>
+                <td> H </td> <td> 5 </td> <td> H </td>
+            </tr>
+            <tr>
+                <td> I </td> <td> 12 </td> <td> I </td>
+            </tr>
+            <tr>
+                <td> J </td> <td> 26 </td> <td> J </td>
+            </tr>
+            <tr>
+                <td> K </td> <td> 30 </td> <td> K </td>
+            </tr>
+            <tr>
+                <td> L </td> <td> 9 </td> <td> L </td>
+            </tr>
+            <tr>
+                <td> M </td> <td> 7 </td> <td> M </td>
+            </tr>
+            <tr>
+                <td> N </td> <td> 6 </td> <td> N </td>
+            </tr>
+            <tr>
+                <td> O </td> <td> 3 </td> <td> O </td>
+            </tr>
+            <tr>
+                <td> P </td> <td> 13 </td> <td> P </td>
+            </tr>
+        </table>
+        </td>
+        <td>
+            <table border>
+                <tr>
+                    <th> 文字 </th> <th> コード </th> <th> キー </th> 
+                </tr>
+                <tr>
+                    <td> Q </td> <td> 29 </td> <td> Q </td>
+                </tr>
+                <tr>
+                    <td> R </td> <td> 10 </td> <td> R </td>
+                </tr>
+                <tr>
+                    <td> S </td> <td> 20 </td> <td> S </td>
+                </tr>
+                <tr>
+                    <td> T </td> <td> 1 </td> <td> T </td>
+                </tr>
+                <tr>
+                    <td> U </td> <td> 28 </td> <td> U </td>
+                </tr>
+                <tr>
+                    <td> V </td> <td> 15 </td> <td> V </td>
+                </tr>
+                <tr>
+                    <td> W </td> <td> 25 </td> <td> W </td>
+                </tr>
+                <tr>
+                    <td> X </td> <td> 23 </td> <td> X </td>
+                </tr>
+                <tr>
+                    <td> Y </td> <td> 21 </td> <td> Y </td>
+                </tr>
+                <tr>
+                    <td> Z </td> <td> 17 </td> <td> Z </td>
+                </tr>
+                <tr>
+                    <td> (CR) </td> <td> 2 </td> <td> Enter </td>
+                </tr>
+                <tr>
+                    <td> (Space) </td> <td> 4 </td> <td> Space </td>
+                </tr>
+                <tr>
+                    <td> (LF) </td> <td> 8 </td> <td> Tab </td>
+                </tr>
+                <tr>
+                    <td> (Blank) </td> <td> 0 </td> <td> | </td>
+                </tr>
+            </table>
+            </td>
+            <td>
+                <table border>
+                    <tr>
+                        <th> 文字 </th> <th> コード </th> <th> キー </th> 
+                    </tr>
+                    <tr>
+                        <td> 0 </td> <td> 56 </td> <td> 0 </td>
+                    </tr>
+                    <tr>
+                        <td> 1 </td> <td> 57 </td> <td> 1 </td>
+                    </tr>
+                    <tr>
+                        <td> 2 </td> <td> 48 </td> <td> 2 </td>
+                    </tr>
+                    <tr>
+                        <td> 3 </td> <td> 42 </td> <td> 3 </td>
+                    </tr>
+                    <tr>
+                        <td> 4 </td> <td> 33 </td> <td> 4 </td>
+                    </tr>
+                    <tr>
+                        <td> 5 </td> <td> 53 </td> <td> 5 </td>
+                    </tr>
+                    <tr>
+                        <td> 6 </td> <td> 60 </td> <td> 6 </td>
+                    </tr>
+                    <tr>
+                        <td> 7 </td> <td> 44 </td> <td> 7 </td>
+                    </tr>
+                    <tr>
+                        <td> 8 </td> <td> 35 </td> <td> 8 </td>
+                    </tr>
+                    <tr>
+                        <td> 9 </td> <td> 45 </td> <td> 9 </td>
+                    </tr>
+                    <tr>
+                        <td> + </td> <td> 40 </td> <td> + </td>
+                    </tr>
+                    <tr>
+                        <td> - </td> <td> 34 </td> <td> - </td>
+                    </tr>
+                    <tr>
+                        <td> = </td> <td> 55 </td> <td> = </td>
+                    </tr>
+                    <tr>
+                        <td> : </td> <td> 47 </td> <td> : </td>
+                    </tr>
+                    <tr>
+                        <td> , </td> <td> 38 </td> <td> , </td>
+                    </tr>
+                    <tr>
+                        <td> . </td> <td> 39 </td> <td> . </td>
+                    </tr>
+                    <tr>
+                        <td> (Bell) </td> <td> 32 </td> <td> [ </td>
+                    </tr>
+                    <tr>
+                        <td> (Rubout) </td> <td> 63 </td> <td> Backspace </td>
+                    </tr>
+                </table>
+                </td>
+            </table>
+
+    <h2> PC-1 本体の操作 </h2>
+
+    <h3> インジケータ </h3>
+
+    <p>
+        本体の上部の三列のランプ(本来はネオン管とのこと)は、
+        M, A, R レジスタの内容を表示している。
+        (ただし、M レジスタの挙動は正確でない可能性が高い。)
+    </p>
+    <p>
+        その下は X レジスタ(次に実行する命令)、
+        SCC レジスタ(大体プログラムカウンター)の内容を示す。
+    </p>
+    <p>
+        右下のボタン列の下のランプは連続実行を許可しているかどうかを示す。
+    </p>
+
+    <h3> ボタン </h3>
+    <h4> Initial Load </h4>
+        テープの内容を「直接」読み込む。
+        通常、イニシャルオーダーの読み込みに用いる。
+        なお、通常のプログラムは、これを用いて読み込んだイニシャルオーダーを
+        実行することにより読み込む。
+    <h4> Free Run </h4>
+        連続実行を可能にする。
+    <h4> Stop </h4>
+        連続実行を止める。
+    <h4> Clear Start </h4>
+        すべてのレジスタをクリアして実行を開始する。
+        (このあたりの挙動は正確でないかもしれない。)
+    <h4> Initial Start </h4>
+        X レジスタの内容を再読み込みして、実行を開始(再開)する。
+    <h4> Restart </h4>
+        実行を開始(再開)する。
+
+</body>
+</html>
