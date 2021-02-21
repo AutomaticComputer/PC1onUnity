@@ -24,7 +24,7 @@ Unity Editor 上であれば、Inspector でレジスターやメモリの内容
 Unzip して実行してみてください。
 
 矢印キーとPgUp, PgDn で視点の移動ができます。
-より詳しい操作マニュアルはこちら: [マニュアル](docs/manual.html)
+より詳しい操作マニュアルはこちら: [マニュアル](https://automaticcomputer.github.io/PC1onUnity/manual.html)
 
 通常、PC-1 のプログラムは、
 一種のアセンブリ言語のようなもので書き、
