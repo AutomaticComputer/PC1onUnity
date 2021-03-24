@@ -6,6 +6,9 @@ This is a simulator for the parametron computer PC-1 on Unity.
 I don't think it is visually faithful. 
 The timing should be correct up to a frame interval. 
 
+New! (2021.3.24) 
+[1000 digits of pi](https://automaticcomputer.github.io/PC1onUnity/pi.html).
+
 ## On parametron computer PC-1
 
 See: 
@@ -41,7 +44,7 @@ and
 [1000 digits of e](https://www.iijlab.net/~ew/pc1/e1000.html) are included. 
 To try them: 
 - Press "LOAD" in the upper left corner of the teleprinter, 
-and choose "mandelblot.ptw."
+and choose "R0.ptw."
 - Press "INITIAL LOAD" on the computer. 
 - When the loading is done, load "napier.ptr" on the teleprinter, 
 switch on "FREE RUN" and press "CLEAR START". 
@@ -52,13 +55,19 @@ After a while, the first 1000 digits of e is printed.
 
 For another demonstration, 
 I prepared a program to draw the Mandelblot set 
-(which wasn't known in 1964). 
+(which wasn't known in 1964), 
+inspired by 
+[Mandelblot set on IBM 1401](http://www.righto.com/2015/03/12-minute-mandelbrot-fractals-on-50.html)
+by Ken Shirriff. 
 Load "mandelblot.ptw" in the same way as "R0". 
 (To execute in steps, 
 switch off "FREE RUN", press "CLEAR START" 
 and then "RESTART" to continue.)
 
 mandelblot.ptr works similarly but is read in with R0. 
+
+I also tried 
+[1000 digits of pi](https://automaticcomputer.github.io/PC1onUnity/pi.html).
 
 You can also prepare a tape for "initial load" using the teleprinter 
 (though it takes labor). 
@@ -83,6 +92,10 @@ I thank Dr. Wada for permission.
 (Ver. 0.2.3) 
 The behavior of Initial loader and the tape format 
 were corrected in accordance with Dr. Wada's comments. 
+
+(Ver. 0.2.5)
+The output routine "pi_1000_3.ptw" 
+is a modified version of that of "e1000". 
 
 
 ## Related

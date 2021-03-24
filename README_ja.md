@@ -4,6 +4,9 @@ Unity 上で動く、パラメトロン計算機 PC-1 のシミュレーター�
 見た目はあまり実物に忠実ではないと思います。
 速度はフレーム単位で正確になるよう努めました。
 
+New! (2021.3.24) 
+[円周率 1000 桁の計算](https://automaticcomputer.github.io/PC1onUnity/pi.html)。
+
 ## パラメトロン計算機 PC-1 について
 
 以下をご覧下さい。
@@ -46,11 +49,15 @@ Unzip して実行してみてください。
 
 もう一つ、デモとして Mandelblot 集合(1964 年には発見されていませんでしたが…)
 の描画プログラムを用意しました。
+(Ken Shirriff さんの、
+[IBM 1401 での Mandelblot 集合の描画](http://www.righto.com/2015/03/12-minute-mandelbrot-fractals-on-50.html)にインスパイアされました。)
 R0 と同様に "mandelblot.ptw" を読み込んで実行してください。
 (ステップ動作させたい場合は、
 "FREE RUN" を on にしないで "CLEAR START" を押し、
 その後は "RESTART" を押してゆく。)
 mandelblot.ptr は同様のプログラムですが R0 で読み込むことができます。
+
+[円周率 1000 桁の計算](https://automaticcomputer.github.io/PC1onUnity/pi.html)もやってみました。
 
 テレプリンタで initial load 用のテープを作成することも
 (かなりの手間ですが)できます。
@@ -82,6 +89,10 @@ mandelblot.ptr は同様のプログラムですが R0 で読み込むことが�
 (Ver. 0.2.3) 
 Initial loader の動作・テープフォーマットを、
 和田先生にコメントをいただいて修正しました。
+
+(Ver. 0.2.5)
+円周率の計算の印刷ルーチン "pi_1000_3.ptw" には e1000 桁の計算の印刷ルーチンを
+改変して使用しています。
 
 
 ## 関連
