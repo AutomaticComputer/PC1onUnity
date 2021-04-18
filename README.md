@@ -6,7 +6,18 @@ This is a simulator for the parametron computer PC-1 on Unity.
 I don't think it is visually faithful. 
 The timing should be correct up to a frame interval. 
 
-New! (2021.3.24) 
+New! (2021.4.18)
+Now you can move and resize using the touch screen. 
+
+New! (2021.4.18)
+Sound(only on PC and Mac), 
+according to [計算機による音楽演奏](http://parametron.blogspot.com/search/label/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%81%AB%E3%82%88%E3%82%8B%E9%9F%B3%E6%A5%BD%E6%BC%94%E5%A5%8F) by Dr. Wada. 
+See "soundtest.ptr" for an example. 
+You can switch on/off the sound with "SPEAKER" button. 
+When something goes wrong, switching off/on may fix it. 
+
+
+(2021.3.24) 
 [1000 digits of pi](https://automaticcomputer.github.io/PC1onUnity/pi.html).
 
 ## On parametron computer PC-1
@@ -25,7 +36,7 @@ from Computer Museum.
 Download the [Windows binary](PC1onUnity_Windows.zip), 
 build it yourself, 
 or try the
-[WebGL version](https://automaticcomputer.github.io/PC1onUnity/PC1onUnity_WebGL/index.html). 
+[WebGL version](https://automaticcomputer.github.io/PC1onUnity/webgl.html). 
 On Unity Editor, 
 you can also see the contents of the registers and main stores. 
 
@@ -34,6 +45,7 @@ but I haven't tried it yet.
 Hopefully, it works after unzipping. 
 
 To move the viewpoint, use arrow keys and PgUp, PgDn. 
+You can also use the touch panel. 
 
 Usually people wrote a program in a kind of assembly language 
 and loaded it with the initial orders "R0". 

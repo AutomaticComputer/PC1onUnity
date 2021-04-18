@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Unity WebGL Player | PC-1 on Unity</title>
+        <link rel="shortcut icon" href="PC1onUnity_WebGL/TemplateData/favicon.ico">
+        <link rel="stylesheet" href="PC1onUnity_WebGL/TemplateData/style.css">
+        <script src="PC1onUnity_WebGL/TemplateData/UnityProgress.js"></script>
+        <script src="PC1onUnity_WebGL/Build/UnityLoader.js"></script>
+        <script>
+          var unityInstance = UnityLoader.instantiate("unityContainer", "Build/PC1onUnity_WebGL.json", {onProgress: UnityProgress});
+        </script>
+        </head>
+    <body>
+        <h1> WebGL Player </h1>        
+
+        <p>
+            See 
+            <a href="https://github.com/AutomaticComputer/PC1onUnity/blob/master/README.md"> 
+                README.md
+            </a> 
+            or 
+            <a href="https://github.com/AutomaticComputer/PC1onUnity/blob/master/README_ja.md">
+                README_ja.md
+            </a> 
+            for instructions. 
+        </p>
+
+        <div class="webgl-content">
+            <div id="unityContainer" style="width: 960px; height: 600px"></div>
+            <div class="footer">
+              <div class="webgl-logo"></div>
+              <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+              <div class="title">PC-1 on Unity</div>
+            </div>
+          </div>
+      
+    </body>
+</html>

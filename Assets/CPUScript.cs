@@ -6,6 +6,15 @@ using UnityEngine.Rendering;
 
 public class CPUScript : MonoBehaviour
 {
+    private bool playSound = false;
+ 
+    AudioSource audioSource;
+    private float sampleRate = 48000f;
+    private Queue<Tuple<uint, bool>> audioPulses;
+    private float currentAudioLevel = 0.0f;
+    private uint elapsedCycles;
+    private float elapsedTimeAudio;
+
     private PanelScript panelScript; 
     public PrinterScript printerScript;
 
@@ -30,6 +39,13 @@ public class CPUScript : MonoBehaviour
 // Start is called before the first frame update
 void Start()
     {
+//
+        audioPulses = new Queue<Tuple<uint, bool>>();
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0; //force 2D sound
+        audioSource.Stop(); //avoids audiosource from starting to play automatically
+ //
         mainStore = new UInt32[mainStoreSize];
         initialLoadBuffer = new UInt32[6];
 
@@ -50,6 +66,7 @@ void Start()
         regK = 0;
 
         timeLeft = 0.0f;
+
     }
 
 
@@ -60,6 +77,20 @@ void Start()
 // Update is called once per frame
     void Update()
     {
+        if(playSound && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+        if(!playSound && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+        if (audioPulses.Count == 0)
+        {
+            elapsedCycles = 0;
+            elapsedTimeAudio = -0.1f;
+        }
+
         if (panelScript == null)
             panelScript = gameObject.GetComponent<PanelScript>();
 
@@ -79,7 +110,23 @@ void Start()
             initialStartPushed = panelScript.initialStartPushed(),
             restartPushed = panelScript.restartPushed(),
             freeRunPushed = panelScript.freeRunPushed(),
-            stopPushed = panelScript.stopPushed();
+            stopPushed = panelScript.stopPushed(), 
+            soundPushed = panelScript.soundPushed();
+
+        if (soundPushed)
+        {
+            if (playSound) 
+            {
+                playSound = false;
+            }
+            else
+            {
+                elapsedCycles = 0;
+                elapsedTimeAudio = -0.1f;
+                audioPulses.Clear();
+                playSound = true;                
+            }
+        }
 
         if (!isInitialLoad) {
             if (freeRunPushed) 
@@ -192,6 +239,7 @@ void Start()
         panelScript.setRegisterIndicator(1, regA);
         panelScript.setRegisterIndicator(2, regR);
         panelScript.setFreeRunIndicator(isFreeRun);
+        panelScript.setSoundIndicator(playSound);
 
         panelScript.setOrIndicator(regX);
         panelScript.setSccIndicator(regK);
@@ -200,6 +248,7 @@ void Start()
     private void addCycles(uint i)
     {
         timeLeft -= i * cycleTime;
+        elapsedCycles += i;
     }
 
     private UInt64 readShortWord(UInt64 addr)
@@ -555,6 +604,20 @@ void Start()
                 regA = ((regA - regM) & 0xfffffffffL);
                 addCycles(4);
                 break;
+            case 21: // y
+                if (operand == 31 && playSound)
+                {
+                    if (isLongWord) 
+                    {
+                        audioPulses.Enqueue(new Tuple<uint, bool>(elapsedCycles, false));
+                    }
+                    else
+                    {
+                        audioPulses.Enqueue(new Tuple<uint, bool>(elapsedCycles, true));
+                    }
+                }
+                addCycles(4);
+                break;
             case 23: // x
                 if (isLongWord) 
                 {
@@ -673,6 +736,37 @@ void Start()
                 ", operand: " + operand); 
                 isStopped = true;
                 break;
+        }
+    }
+
+   
+    void OnAudioFilterRead(float[] data, int channels)
+    {
+        for(int i = 0; i < data.Length; i+= channels)
+        {
+            if (audioPulses.Count > 0)
+            {
+                Tuple<uint, bool> pulse = audioPulses.Peek();
+                if (elapsedTimeAudio > pulse.Item1 * 0.0001f)
+                {
+                    audioPulses.Dequeue();
+                    if (pulse.Item2) 
+                    {
+                        currentAudioLevel = 0.5f;
+                    }
+                    else
+                    {
+                        currentAudioLevel = 0.0f;
+                    }
+                }          
+            }
+            data[i] = currentAudioLevel;
+           
+            if(channels == 2)
+            {
+                data[i+1] = data[i];
+            }
+           elapsedTimeAudio += 1.0f/sampleRate;
         }
     }
 }

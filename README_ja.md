@@ -4,7 +4,18 @@ Unity 上で動く、パラメトロン計算機 PC-1 のシミュレーター�
 見た目はあまり実物に忠実ではないと思います。
 速度はフレーム単位で正確になるよう努めました。
 
-New! (2021.3.24) 
+
+New! (2021.4.18)
+タッチによる移動・拡大縮小ができるようにした。
+
+New! (2021.4.18)
+音楽演奏(PC, Mac のみ)。
+和田先生の [計算機による音楽演奏](http://parametron.blogspot.com/search/label/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%81%AB%E3%82%88%E3%82%8B%E9%9F%B3%E6%A5%BD%E6%BC%94%E5%A5%8F)の通り音が出せるようにした。
+サンプルとして "soundtest.ptr" を入れてある。
+"SPEAKER" ボタンで音をオン・オフできる。
+音がおかしくなった場合オン・オフすると直ることがある。
+
+(2021.3.24) 
 [円周率 1000 桁の計算](https://automaticcomputer.github.io/PC1onUnity/pi.html)。
 
 ## パラメトロン計算機 PC-1 について
@@ -18,7 +29,9 @@ New! (2021.3.24)
 ## 使用法
 
 [Windows 用バイナリ](PC1onUnity_Windows.zip)をダウンロードするか、
-ビルドするか、[WebGL版](https://automaticcomputer.github.io/PC1onUnity/PC1onUnity_WebGL/index.html)を試してみてください。
+ビルドするか、
+[WebGL版](https://automaticcomputer.github.io/PC1onUnity/webgl.html). 
+を試してみてください。
 Unity Editor 上であれば、Inspector でレジスターやメモリの内容を
 見ることができます。
 
@@ -27,6 +40,8 @@ Unity Editor 上であれば、Inspector でレジスターやメモリの内容
 Unzip して実行してみてください。
 
 矢印キーとPgUp, PgDn で視点の移動ができます。
+タッチによる操作も可能です。
+
 より詳しい操作マニュアルはこちら: [マニュアル](https://automaticcomputer.github.io/PC1onUnity/manual.html)
 
 通常、PC-1 のプログラムは、

@@ -9,14 +9,18 @@ public class PanelScript : MonoBehaviour
 
     [SerializeField]
     private PushButtonScript pbClearStartScript, pbInitialStartScript, pbRestartScript, 
-        pbInitialLoadScript, pbFreeRunScript, pbStopScript;
+        pbInitialLoadScript, pbFreeRunScript, pbStopScript, pbSoundScript;
 
     private GameObject[,] registerIndicators;
     private GameObject[] orIndicators, sccIndicators;
-    private GameObject freeRunIndicator;
+    private GameObject freeRunIndicator, soundIndicator;
     // Start is called before the first frame update
     void Start()
     {
+#if UNITY_WEBGL
+#else
+        pbSoundScript.gameObject.SetActive(true);
+#endif
         registerIndicators = new GameObject[3, 36];
         for(int i=0; i<3; i++) 
         {
@@ -52,6 +56,14 @@ public class PanelScript : MonoBehaviour
                 new Vector3(0.188f, -0.06f, -0.05f),
                 Quaternion.identity);
         freeRunIndicator.GetComponent<IndicatorScript>().setState(false);
+#if UNITY_WEBGL
+#else
+        soundIndicator = Instantiate(indicatorPrefab, 
+                transform.position + 
+                new Vector3(0.1f, -0.06f, -0.05f),
+                Quaternion.identity);
+        soundIndicator.GetComponent<IndicatorScript>().setState(false);
+#endif
     }
 
     // Update is called once per frame
@@ -90,6 +102,11 @@ public class PanelScript : MonoBehaviour
         return pbFreeRunScript.isPushed();
     }
 
+    public bool soundPushed() 
+    {
+        return pbSoundScript.isPushed();
+    }
+
     public void setRegisterIndicator(int i, UInt64 d)
     {
         for(int j = 0; j < 36; j++) 
@@ -117,5 +134,13 @@ public class PanelScript : MonoBehaviour
     public void setFreeRunIndicator(bool b)
     {
         freeRunIndicator.GetComponent<IndicatorScript>().setState(b);
+    }
+
+    public void setSoundIndicator(bool b)
+    {
+#if UNITY_WEBGL
+#else
+        soundIndicator.GetComponent<IndicatorScript>().setState(b);
+#endif
     }
 }
