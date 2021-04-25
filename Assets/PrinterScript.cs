@@ -13,7 +13,7 @@ public class PrinterScript : MonoBehaviour
     [SerializeField]
     private TapeScript tapeReadScript, tapePunchScript;
     [SerializeField]
-    private OnOffButtonScript buttonReadScript, buttonEchoScript, buttonFastScript, buttonPunchScript;
+    private OnOffButtonScript buttonReadScript, buttonTapeFastScript, buttonKeyScript, buttonPrintScript, buttonFastScript, buttonPunchScript;
     [SerializeField]
     private PushButtonScript pbSkipScript, pbReadScript, pbRew, pbCutScript;
 
@@ -43,6 +43,8 @@ public class PrinterScript : MonoBehaviour
         }
 
         printerDrumScript.setFast(buttonFastScript.isOn());
+        tapeReadScript.setFast(buttonTapeFastScript.isOn());
+        tapePunchScript.setFast(buttonTapeFastScript.isOn());
 
         byte b;
         b = teleprinterKeyboardScript.getCode();
@@ -50,10 +52,14 @@ public class PrinterScript : MonoBehaviour
         if (b < maxKeyCode)
         {
             keyCode = b;
-            if (buttonEchoScript.isOn())
+            if (buttonKeyScript.isOn())
+            {
                 typeCode = b;
-            if (buttonPunchScript.isOn())
-                punchCode = b;
+                if (buttonPunchScript.isOn())
+                {
+                    punchCode = b;
+                }
+            }
         }
 
         if (typeCode == 0xff && pbReadScript.isPushed())
@@ -89,7 +95,7 @@ public class PrinterScript : MonoBehaviour
 
         if (typeCode != 0xff)
         {
-            if (printerDrumScript.type(typeCode))
+            if (!buttonPrintScript.isOn() || printerDrumScript.type(typeCode))
                 typeCode = 0xff;
         }
 
@@ -118,8 +124,9 @@ public class PrinterScript : MonoBehaviour
     {
         if (typeCode != 0xff)
             return false;
-        bool ok = printerDrumScript.type(b);
-        if (ok &&buttonPunchScript.isOn())
+        bool ok = 
+            (!buttonPrintScript.isOn() || printerDrumScript.type(b));
+        if (ok && buttonPunchScript.isOn())
         {
             tapePunchScript.punchForced(b);
         }

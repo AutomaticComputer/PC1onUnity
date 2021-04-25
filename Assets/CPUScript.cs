@@ -103,6 +103,7 @@ void Start()
                 isInitialLoad = true;
                 initialLoadCounter = -1;
                 initialLoadChars = 0;
+                timeLeft = 0.0f;
             }
         }  
 
@@ -164,12 +165,16 @@ void Start()
 
         if (isInitialLoad)
         {
+            timeLeft += Time.deltaTime;
             while (true) 
             {
                 byte a = printerScript.readTape();
                 if (a == 0xff) {
                     break;
                 }
+                if (timeLeft < 0)
+                    break;
+                addCycles(4);
                 if (initialLoadCounter < 0) 
                 {
                     if (a != 0 && a != initialLoadEndChar) 

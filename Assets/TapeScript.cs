@@ -16,12 +16,12 @@ public class TapeScript : MonoBehaviour
     private const int maxLength = 100000;
     private Vector3 savedEulerAngles;
 
-    private bool isDrawn;
-//    private const float readTime = 0.003333f, punchTime = 0.016667f;
-
-// 15 chars/s
-    private const float readTime = 0.066667f, punchTime = 0.066667f; 
-    private float readTimeLeft, punchTimeLeft;
+    private bool isDrawn; 
+    
+    private const float readTimeFast = 0.005f, punchTimeFast = 0.016667f, 
+            readTimeSlow = 0.1f, punchTimeSlow = 0.1f; 
+    private float timeLeft, readTime, punchTime;
+    private bool readBusy, punchBusy;
 
     public int charsBeforeCurrent; // how many characters to show before the current position. 
     void Start()
@@ -55,25 +55,55 @@ public class TapeScript : MonoBehaviour
 
         clear();
 
-        readTimeLeft = 0.0f;
-        punchTimeLeft = 0.0f;
+        readBusy = false;
+        punchBusy = false;
+        timeLeft = 0.0f;
+        setFast(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        float fraction;
+        if (readBusy)
+        {
+            fraction = timeLeft / readTime - 1.0f;
+            if (timeLeft >= readTime)
+            {
+                readBusy = false;
+                timeLeft -= readTime;
+            }
+        } 
+        else if (punchBusy)
+        {
+            fraction = timeLeft / punchTime - 1.0f;
+            if (timeLeft >= punchTime)
+            {
+                punchBusy = false;
+                timeLeft -= punchTime;
+            }
+        }
+        else
+        {
+            fraction = 0.0f;
+            timeLeft = 0.0f;
+        }
+
         if (isDrawn)
         {
             texture.Apply();
             isDrawn = false;
         }
-        gameObject.transform.localEulerAngles = savedEulerAngles + 
-            new Vector3((currentPosition % charsPerRoll) * (360.0f / charsPerRoll), 0, 0);
 
-        if (readTimeLeft < readTime)
-            readTimeLeft += Time.deltaTime;
-        if (punchTimeLeft < punchTime)
-            punchTimeLeft += Time.deltaTime;
+        if (fraction > 0.0f)
+        {
+            fraction = 0.0f;
+        }
+        gameObject.transform.localEulerAngles = savedEulerAngles + 
+//            new Vector3((currentPosition % charsPerRoll) * (360.0f / charsPerRoll), 0, 0);
+            new Vector3((fraction + (currentPosition % charsPerRoll)) * (360.0f / charsPerRoll), 0, 0);
+
+        timeLeft += Time.deltaTime;
     }
 
     private void drawAll()
@@ -107,9 +137,19 @@ public class TapeScript : MonoBehaviour
     {
         if (wait) 
         {
-          if (punchTimeLeft < punchTime)
-            return false;
-            punchTimeLeft -= punchTime;
+            if (punchBusy || readBusy)
+            {
+                return false;
+            }
+        }
+        if (timeLeft < punchTime)
+        {
+            punchBusy = true;
+        }
+        else
+        {
+            punchBusy = false;
+            timeLeft -= punchTime;
         }
   
         if (currentPosition >= maxLength - 1)
@@ -164,15 +204,25 @@ public class TapeScript : MonoBehaviour
     {
         byte b;
 
-        if (readTimeLeft < readTime)
+        if (punchBusy || readBusy)
+        {
             return 0xff;
-        readTimeLeft -= readTime;
+        }
+        if (timeLeft < readTime)
+        {
+            readBusy = true;
+        }
+        else
+        {
+            readBusy = false;
+            timeLeft -= readTime;
+        }
 
         if (currentPosition >= length)
             return 0xff;
 
         b = data[currentPosition];
-        if (currentPosition >= charsBeforeCurrent)
+//        if (currentPosition >= charsBeforeCurrent)
         {
             int p = currentPosition + charsPerRoll - charsBeforeCurrent;
             byte c = 64;
@@ -196,7 +246,7 @@ public class TapeScript : MonoBehaviour
         if (currentPosition >= length)
             return;
 
-        if (currentPosition >= charsBeforeCurrent)
+//        if (currentPosition >= charsBeforeCurrent)
         {
             int p = currentPosition + charsPerRoll - charsBeforeCurrent;
             byte c = 64;
@@ -245,5 +295,19 @@ public class TapeScript : MonoBehaviour
     public bool isRBusy()
     {
         return (currentPosition >= length);
+    }
+
+    public void setFast(bool b)
+    {
+        if (b) 
+        {
+            punchTime = punchTimeFast;
+            readTime = readTimeFast;
+        }
+        else
+        {
+            punchTime = punchTimeSlow;
+            readTime = readTimeSlow;
+        }
     }
 }

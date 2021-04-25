@@ -19,7 +19,7 @@ public class PrinterDrumScript : MonoBehaviour
 
     private const int roTape = 0, lfTape = 8, crTape = 2;
 
-    private const float typeTimeSlow = 0.08333f, typeTimeFast = 0.008333f;
+    private const float typeTimeSlow = 0.15f, typeTimeFast = 0.015f;
     private float typeTime, timeLeft;
 
     private byte[] buffer;
