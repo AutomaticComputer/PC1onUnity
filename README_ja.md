@@ -4,7 +4,7 @@ Unity 上で動く、パラメトロン計算機 PC-1 のシミュレーター�
 見た目はあまり実物に忠実ではないと思います。
 速度はフレーム単位で正確になるよう努めました。
 
-[スクリーンショット](https://automaticcomputer.github.io/PC1onUnity/screenshot_0_2_8.jpg)
+[スクリーンショット](https://automaticcomputer.github.io/PC1onUnity/PC1onUnity_0_2_8.jpg)
 
 New! (2021.9.25)
 テレタイプライターをもう少しそれらしくした。
