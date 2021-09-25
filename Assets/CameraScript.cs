@@ -8,19 +8,9 @@ public class CameraScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private bool upPressed, downPressed, rightPressed, leftPressed, 
-      pageUpPressed, pageDownPressed;
-
     private Hashtable lastTouches; 
     void Start()
     {
-        upPressed = false;
-        downPressed = false;
-        rightPressed = false;
-        leftPressed = false;
-        pageUpPressed = false;
-        pageDownPressed = false;
-
         lastTouches = new Hashtable();
     }
 
@@ -31,17 +21,17 @@ public class CameraScript : MonoBehaviour
         float verticalInput = 0.0f; 
         float depthInput = 0.0f;
 
-        if (Input.GetKey(KeyCode.UpArrow) || upPressed)
+        if (Input.GetKey(KeyCode.UpArrow))
             verticalInput = 1.0f;
-        if (Input.GetKey(KeyCode.DownArrow) || downPressed)
+        if (Input.GetKey(KeyCode.DownArrow))
             verticalInput = -1.0f;
-        if (Input.GetKey(KeyCode.RightArrow) || rightPressed)
+        if (Input.GetKey(KeyCode.RightArrow))
             horizontalInput = 1.0f;
-        if (Input.GetKey(KeyCode.LeftArrow) || leftPressed)
+        if (Input.GetKey(KeyCode.LeftArrow))
             horizontalInput = -1.0f;
-        if (Input.GetKey(KeyCode.PageUp) || pageUpPressed)
+        if (Input.GetKey(KeyCode.PageUp))
             depthInput = 1.0f;
-        if (Input.GetKey(KeyCode.PageDown) || pageDownPressed)
+        if (Input.GetKey(KeyCode.PageDown))
             depthInput = -1.0f;
 
         transform.Translate(new Vector3(horizontalInput, verticalInput, depthInput) * Time.deltaTime * 0.2f);
@@ -107,11 +97,28 @@ public class CameraScript : MonoBehaviour
                 }
                 if (i == 2) 
                 {
+                    Vector3 lastPos3, pos3;
+                    float x, y;
+                    lastPos3 = Camera.main.ScreenToWorldPoint(
+                        new Vector3(lastPos[0].x, lastPos[0].y, -transform.position.z));
+
+
+
                     float mag = Vector2.Distance(pos[0], pos[1])/Vector2.Distance(lastPos[0], lastPos[1]);
                     mag = Math.Min(mag, 1.25f);
                     mag = Math.Max(mag, 0.8f);
                     transform.Translate(
                         new Vector3(0, 0, transform.position.z*(1.0f/mag-1.0f)));
+
+                    pos3 = Camera.main.ScreenToWorldPoint(
+                        new Vector3(pos[0].x, pos[0].y, -transform.position.z));
+
+                    x = Math.Min(lastPos3.x - pos3.x, 100.0f);
+                    x = Math.Max(x, -100.0f);
+                    y = Math.Min(lastPos3.y - pos3.y, 100.0f);
+                    y = Math.Max(y, -100.0f);
+                    transform.Translate(new Vector3(x, y, 0));
+
                 }
             }
         }
@@ -120,54 +127,4 @@ public class CameraScript : MonoBehaviour
             lastTouches[fingerId] = touches[fingerId];
         }
     }
-
-    public void UpButtonDown() 
-    {
-        upPressed = true;
-    }
-    public void UpButtonUp() 
-    {
-        upPressed = false;
-    }
-    public void DownButtonDown() 
-    {
-        downPressed = true;
-    }
-    public void DownButtonUp() 
-    {
-        downPressed = false;
-    }
-    public void RightButtonDown() 
-    {
-        rightPressed = true;
-    }
-    public void RightButtonUp() 
-    {
-        rightPressed = false;
-    }
-    public void LeftButtonDown() 
-    {
-        leftPressed = true;
-    }
-    public void LeftButtonUp() 
-    {
-        leftPressed = false;
-    }
-    public void PageUpButtonDown() 
-    {
-        pageUpPressed = true;
-    }
-    public void PageUpButtonUp() 
-    {
-        pageUpPressed = false;
-    }
-    public void PageDownButtonDown() 
-    {
-        pageDownPressed = true;
-    }
-    public void PageDownButtonUp() 
-    {
-        pageDownPressed = false;
-    }
-
 }

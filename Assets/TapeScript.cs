@@ -14,7 +14,7 @@ public class TapeScript : MonoBehaviour
     private byte[] data;
     private int currentPosition, length; 
     private const int maxLength = 100000;
-    private Vector3 savedEulerAngles;
+    private Quaternion savedRotation;
 
     private bool isDrawn; 
     
@@ -26,7 +26,7 @@ public class TapeScript : MonoBehaviour
     public int charsBeforeCurrent; // how many characters to show before the current position. 
     void Start()
     {
-        savedEulerAngles = gameObject.transform.localEulerAngles;
+        savedRotation = gameObject.transform.localRotation;
 
         Renderer rend = GetComponent<Renderer>();
         punchedTexture = new Texture2D(56, 520, TextureFormat.RGB24, false);
@@ -43,9 +43,9 @@ public class TapeScript : MonoBehaviour
                     {
                         if ((i == 3 && (2 * x - 7) * (2 * x - 7) + (2 * y - 7) * (2 * y - 7) <= 9) ||
                             (b && (2 * x - 7) * (2 * x - 7) + (2 * y - 7) * (2 * y - 7) <= 28))
-                            punchedTexture.SetPixel(i * 8 + x, j * 8 + y, Color.black);
+                            punchedTexture.SetPixel((6 - i) * 8 + x, j * 8 + y, Color.black);
                         else
-                            punchedTexture.SetPixel(i * 8 + x, j * 8 + y, Color.white);
+                            punchedTexture.SetPixel((6 - i) * 8 + x, j * 8 + y, Color.white);
                     }
             }
         for (int i = 0; i < 7; i++)
@@ -99,9 +99,8 @@ public class TapeScript : MonoBehaviour
         {
             fraction = 0.0f;
         }
-        gameObject.transform.localEulerAngles = savedEulerAngles + 
-//            new Vector3((currentPosition % charsPerRoll) * (360.0f / charsPerRoll), 0, 0);
-            new Vector3((fraction + (currentPosition % charsPerRoll)) * (360.0f / charsPerRoll), 0, 0);
+        gameObject.transform.localRotation = savedRotation * 
+            Quaternion.Euler((fraction + (currentPosition % charsPerRoll)) * (360.0f / charsPerRoll), 0, 0);
 
         timeLeft += Time.deltaTime;
     }

@@ -31,27 +31,8 @@
     注意: 
     PC-1 の入出力には、当時一般的に用いられた印刷電信機を
     用いたとのことである。
-    このシミュレーターのテレプリンターは、多くの点で実物に忠実でない。
-    <ul>
-        <li>
-            このシミュレーターではプリンターの印字を
-            ドットマトリクス風に行っているが、当時はおそらくそうでない。
-        </li>
-        <li>
-            印字が大文字か小文字か、一行が何文字か、等も不明(調べていない)。
-        </li>
-        <li>
-            全体の形状(特にテープ装置の形、テープの配置・向きなど)は
-            まったく実物と異なると思われる。        
-        </li>
-        <li>
-            キーボード配列も(ほぼ確実に)正しくない。
-            (同じキーを Letter shift, Figure shift で切り替えたものと思われる。)
-        </li>
-        <li>
-            テープには鑽孔せず印刷している(鑽孔は大変そうなので)。
-        </li>
-    </ul>
+    このシミュレーターのテレプリンターは、いくつかの点で実物に忠実でない。
+    くわしくは<a href="teletypewriter.html">こちら</a>。
 
     <h3> 印字機 </h3>
     <p>
@@ -114,6 +95,10 @@
         改行には CR と LF(物理キーボードでは Enter, Tab)を両方入力する。
         (これが正しいのかどうかは不明。)
     </p>
+    <p>
+        Letter shift で大文字に、Figure shift で小文字に切り替えることにしている。
+        (ただし、punch が on であればテープ上にも letter shift, figure shift が鑽孔される。)
+    </p>
 
     <table border=0 cellspacing=16>
         <td>
@@ -122,52 +107,52 @@
                 <th> 文字 </th> <th> コード </th> <th> キー </th> 
             </tr>
             <tr>
-                <td> A </td> <td> 24 </td> <td> A </td>
+                <td> A </td> <td> 24 </td> <td> a </td>
             </tr>
             <tr>
-                <td> B </td> <td> 19 </td> <td> B </td>
+                <td> B </td> <td> 19 </td> <td> b </td>
             </tr>
             <tr>
-                <td> C </td> <td> 14 </td> <td> C </td>
+                <td> C </td> <td> 14 </td> <td> c </td>
             </tr>
             <tr>
-                <td> D </td> <td> 18 </td> <td> D </td>
+                <td> D </td> <td> 18 </td> <td> d </td>
             </tr>
             <tr>
-                <td> E </td> <td> 16 </td> <td> E </td>
+                <td> E </td> <td> 16 </td> <td> e </td>
             </tr>
             <tr>
-                <td> F </td> <td> 22 </td> <td> F </td>
+                <td> F </td> <td> 22 </td> <td> f </td>
             </tr>
             <tr>
-                <td> G </td> <td> 11 </td> <td> G </td>
+                <td> G </td> <td> 11 </td> <td> g </td>
             </tr>
             <tr>
-                <td> H </td> <td> 5 </td> <td> H </td>
+                <td> H </td> <td> 5 </td> <td> h </td>
             </tr>
             <tr>
-                <td> I </td> <td> 12 </td> <td> I </td>
+                <td> I </td> <td> 12 </td> <td> i </td>
             </tr>
             <tr>
-                <td> J </td> <td> 26 </td> <td> J </td>
+                <td> J </td> <td> 26 </td> <td> j </td>
             </tr>
             <tr>
-                <td> K </td> <td> 30 </td> <td> K </td>
+                <td> K </td> <td> 30 </td> <td> k </td>
             </tr>
             <tr>
-                <td> L </td> <td> 9 </td> <td> L </td>
+                <td> L </td> <td> 9 </td> <td> l </td>
             </tr>
             <tr>
-                <td> M </td> <td> 7 </td> <td> M </td>
+                <td> M </td> <td> 7 </td> <td> m </td>
             </tr>
             <tr>
-                <td> N </td> <td> 6 </td> <td> N </td>
+                <td> N </td> <td> 6 </td> <td> n </td>
             </tr>
             <tr>
-                <td> O </td> <td> 3 </td> <td> O </td>
+                <td> O </td> <td> 3 </td> <td> o </td>
             </tr>
             <tr>
-                <td> P </td> <td> 13 </td> <td> P </td>
+                <td> P </td> <td> 13 </td> <td> p </td>
             </tr>
         </table>
         </td>
@@ -177,34 +162,34 @@
                     <th> 文字 </th> <th> コード </th> <th> キー </th> 
                 </tr>
                 <tr>
-                    <td> Q </td> <td> 29 </td> <td> Q </td>
+                    <td> Q </td> <td> 29 </td> <td> q </td>
                 </tr>
                 <tr>
-                    <td> R </td> <td> 10 </td> <td> R </td>
+                    <td> R </td> <td> 10 </td> <td> r </td>
                 </tr>
                 <tr>
-                    <td> S </td> <td> 20 </td> <td> S </td>
+                    <td> S </td> <td> 20 </td> <td> s </td>
                 </tr>
                 <tr>
-                    <td> T </td> <td> 1 </td> <td> T </td>
+                    <td> T </td> <td> 1 </td> <td> t </td>
                 </tr>
                 <tr>
-                    <td> U </td> <td> 28 </td> <td> U </td>
+                    <td> U </td> <td> 28 </td> <td> u </td>
                 </tr>
                 <tr>
-                    <td> V </td> <td> 15 </td> <td> V </td>
+                    <td> V </td> <td> 15 </td> <td> v </td>
                 </tr>
                 <tr>
-                    <td> W </td> <td> 25 </td> <td> W </td>
+                    <td> W </td> <td> 25 </td> <td> w </td>
                 </tr>
                 <tr>
-                    <td> X </td> <td> 23 </td> <td> X </td>
+                    <td> X </td> <td> 23 </td> <td> x </td>
                 </tr>
                 <tr>
-                    <td> Y </td> <td> 21 </td> <td> Y </td>
+                    <td> Y </td> <td> 21 </td> <td> y </td>
                 </tr>
                 <tr>
-                    <td> Z </td> <td> 17 </td> <td> Z </td>
+                    <td> Z </td> <td> 17 </td> <td> z </td>
                 </tr>
                 <tr>
                     <td> (CR) </td> <td> 2 </td> <td> Enter </td>
@@ -218,7 +203,13 @@
                 <tr>
                     <td> (Blank) </td> <td> 0 </td> <td> | </td>
                 </tr>
-            </table>
+                <tr>
+                    <td> (Letter shift/下段) </td> <td> 31 </td> <td> L(大文字) </td>
+                </tr>
+                <tr>
+                    <td> (Figure shift/上段) </td> <td> 27 </td> <td> F(大文字) </td>
+                </tr>
+        </table>
             </td>
             <td>
                 <table border>

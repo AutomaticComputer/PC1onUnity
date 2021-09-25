@@ -4,11 +4,18 @@ Unity 上で動く、パラメトロン計算機 PC-1 のシミュレーター�
 見た目はあまり実物に忠実ではないと思います。
 速度はフレーム単位で正確になるよう努めました。
 
+[スクリーンショット](https://automaticcomputer.github.io/PC1onUnity/screenshot_0_2_8.jpg)
 
-New! (2021.4.18)
+New! (2021.9.25)
+テレタイプライターをもう少しそれらしくした。
+詳しくは[こちら](https://automaticcomputer.github.io/PC1onUnity//teletypewriter.html)。
+紙テープの表示を逆向きにしてみた(どちらが自然な向きなのだろうか…)。
+タッチによる拡大縮小を改善した。
+
+(2021.4.18)
 タッチによる移動・拡大縮小ができるようにした。
 
-New! (2021.4.18)
+(2021.4.18)
 音楽演奏(PC, Mac のみ)。
 和田先生の [計算機による音楽演奏](http://parametron.blogspot.com/search/label/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%81%AB%E3%82%88%E3%82%8B%E9%9F%B3%E6%A5%BD%E6%BC%94%E5%A5%8F)の通り音が出せるようにした。
 サンプルとして "soundtest.ptr" を入れてある。

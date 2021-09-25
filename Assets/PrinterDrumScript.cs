@@ -11,13 +11,14 @@ public class PrinterDrumScript : MonoBehaviour
 
     private Vector3 savedEulerAngles;
     private const int charsPerRoll = 240;
-    private const int pixelsPerChar = 8;
+    private const int charHeight = 24, charWidth = 12, horizontalMargin = 48, charsPerLine = 80;
     private int currentPosition, currentX;
 
     private int[] tape_to_font;
     private bool isRotated;
+    private bool isUpper;
 
-    private const int roTape = 0, lfTape = 8, crTape = 2;
+    private const int roTape = 0, lfTape = 8, crTape = 2, lsTape = 31, fsTape = 27;
 
     private const float typeTimeSlow = 0.15f, typeTimeFast = 0.015f;
     private float typeTime, timeLeft;
@@ -29,13 +30,14 @@ public class PrinterDrumScript : MonoBehaviour
 
     private void clear()
     {
-        for (int j = 0; j < 1920; j++)
-            for (int i = 0; i < 560; i++)
+        for (int j = 0; j < charsPerRoll * charHeight; j++)
+            for (int i = 0; i < charsPerLine * charWidth + horizontalMargin * 2; i++)
                 texture.SetPixel(i, j, Color.white);
 
         currentPosition = 0;
         currentX = 0;
         isRotated = false;
+        isUpper = true;
 
         clearCursor();
         setCursor();
@@ -58,18 +60,19 @@ public class PrinterDrumScript : MonoBehaviour
 
         tape_to_font = new int[]
         {
-            32, 52, 30, 47, 14, 40, 46, 45, 
-            13, 44, 50, 39, 41, 48, 35, 54, 
-            37, 58, 36, 34, 51, 57, 38, 56, 
-            33, 55, 42, 16, 53, 49, 43, 27, 
-            15,  4, 11,  8, 17, 18, 31, 12, 
-            10, 19,  3, 20,  7,  9, 21, 25, 
-             2, 22, 23, 24, 28,  5, 29, 26, 
-             0,  1, 59, 60,  6, 61, 62, 63
+            63, 36, 63, 31, 16, 24, 30, 29, 
+            63, 28, 34, 23, 25, 32, 19, 38, 
+            21, 42, 20, 18, 35, 41, 22, 40, 
+            17, 39, 26, 63, 37, 33, 27, 63, 
+            16,  4, 11,  8, 63, 63, 14, 15, 
+            10, 63,  3, 63,  7,  9, 63, 13, 
+             2, 63, 63, 63, 63,  5, 63, 12, 
+             0,  1, 63, 63,  6, 63, 63, 63
         };
 
         Renderer rend = GetComponent<Renderer>();
-        texture = new Texture2D(560, charsPerRoll * pixelsPerChar, TextureFormat.RGB24, false);
+        texture = new Texture2D(charsPerLine * charWidth + horizontalMargin * 2, charsPerRoll * charHeight, 
+            TextureFormat.RGB24, false);
         rend.material.mainTexture = texture;
 
         buffer = new byte[bufferMax];
@@ -92,20 +95,20 @@ public class PrinterDrumScript : MonoBehaviour
 
     private void clearCursor()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < charWidth; i++)
         {
-            texture.SetPixel(40 + currentX * 6 + i, 
-                (charsPerRoll - (currentPosition % charsPerRoll)- 1) * pixelsPerChar,
+            texture.SetPixel(horizontalMargin + currentX * charWidth + i, 
+                (charsPerRoll - (currentPosition % charsPerRoll)- 1) * charHeight,
                 Color.white);
         }
     }
 
     private void setCursor()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < charWidth; i++)
         {
-            texture.SetPixel(40 + currentX * 6 + i, 
-                (charsPerRoll - (currentPosition % charsPerRoll) - 1) * pixelsPerChar,
+            texture.SetPixel(horizontalMargin + currentX * charWidth + i, 
+                (charsPerRoll - (currentPosition % charsPerRoll) - 1) * charHeight,
                 Color.gray);
         }
     }
@@ -118,6 +121,20 @@ public class PrinterDrumScript : MonoBehaviour
 
         if (b == roTape)
         {
+            return true;
+        }
+        if (b == lsTape)
+        {
+            isUpper = true;
+            buffer[bufferCurrent] = lsTape;
+            bufferCurrent++;
+            return true;
+        }
+        if (b == fsTape)
+        {
+            isUpper = false;
+            buffer[bufferCurrent] = fsTape;
+            bufferCurrent++;
             return true;
         }
         if (b == crTape)
@@ -139,10 +156,10 @@ public class PrinterDrumScript : MonoBehaviour
             currentPosition++;
             isRotated = true;
             setCursor();
-            for (int j = 0; j < 8 ; j++)
-                for (int i = 0; i < 6 * 80; i++)
-                    texture.SetPixel(40 +  i,
-                        (charsPerRoll - (currentPosition % charsPerRoll) - 1) * pixelsPerChar - j,
+            for (int j = 0; j < 16 ; j++)
+                for (int i = 0; i < charsPerLine * charWidth; i++)
+                    texture.SetPixel(charsPerLine * charWidth + horizontalMargin * 2 +  i,
+                        (charsPerRoll - (currentPosition % charsPerRoll) - 1) * charHeight - j,
                         Color.white);
             texture.Apply();
             if (bufferCurrent < bufferMax)
@@ -156,11 +173,11 @@ public class PrinterDrumScript : MonoBehaviour
         int c = 0;
         c = tape_to_font[b];
 
-        if (currentX < 80)
+        if (currentX < charsPerLine)
         {
-            texture.SetPixels(40 + currentX * 6, 
-                (charsPerRoll - (currentPosition % charsPerRoll) - 1) * pixelsPerChar, 6, 8, 
-                fontTexture.GetPixels(c * 6, 0, 6, 8));
+            texture.SetPixels(horizontalMargin + currentX * charWidth, 
+                (charsPerRoll - (currentPosition % charsPerRoll) - 1) * charHeight, charWidth, charHeight, 
+                fontTexture.GetPixels(c * charWidth, isUpper ? charHeight : 0, charWidth, charHeight));
             currentX++;
             setCursor();
             if (bufferCurrent < bufferMax)
@@ -170,16 +187,16 @@ public class PrinterDrumScript : MonoBehaviour
             }
         }
 
-        if (currentX == 80)
+        if (currentX == charsPerLine)
         {
             clearCursor();
             currentX = 0;
             currentPosition++;
             isRotated = true;
-            for (int j = 0; j < 8 ; j++)
-                for (int i = 0; i < 6 * 80; i++)
-                    texture.SetPixel(40 +  i,
-                        (charsPerRoll - (currentPosition % charsPerRoll) - 1) * pixelsPerChar - j,
+            for (int j = 0; j < charHeight; j++)
+                for (int i = 0; i < charsPerLine * charWidth; i++)
+                    texture.SetPixel(horizontalMargin +  i,
+                        (charsPerRoll - (currentPosition % charsPerRoll) - 1) * charHeight - j,
                         Color.white);
             setCursor();
         }
@@ -197,8 +214,10 @@ public class PrinterDrumScript : MonoBehaviour
     {
 #if UNITY_WEBGL
 #else
+        bool isUpper_print = false;
         Texture2D tex;
-        tex = new Texture2D(560, bufferLines * pixelsPerChar + 64, TextureFormat.RGB24, false);
+        tex = new Texture2D(charWidth * charsPerLine + horizontalMargin * 2, bufferLines * charHeight + 128, 
+                TextureFormat.RGB24, false);
 
 
         for (int j = 0; j < tex.height; j++)
@@ -219,8 +238,19 @@ public class PrinterDrumScript : MonoBehaviour
                 y ++;
                 continue;
             }
-            tex.SetPixels(40 + x * 6, (bufferLines - y - 1) * pixelsPerChar + 32, 6, 8, 
-                fontTexture.GetPixels(buffer[i] * 6, 0, 6, 8));
+            if (buffer[i] == lsTape)
+            {
+                isUpper_print = true;
+                continue;
+            }
+            if (buffer[i] == fsTape)
+            {
+                isUpper_print = false;
+                continue;
+            }
+            tex.SetPixels(horizontalMargin + x * charWidth, 
+                (bufferLines - y - 1) * charHeight + 64, charWidth, charHeight, 
+                fontTexture.GetPixels(buffer[i] * charWidth, isUpper_print ? charHeight : 0, charWidth, charHeight));
             x++;
         }
 

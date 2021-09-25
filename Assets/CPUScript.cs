@@ -39,13 +39,15 @@ public class CPUScript : MonoBehaviour
 // Start is called before the first frame update
 void Start()
     {
-//
         audioPulses = new Queue<Tuple<uint, bool>>();
+
+        // The code for generating sound is based on 
+        // https://forum.unity.com/threads/generating-a-simple-sinewave.471529/
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0; //force 2D sound
-        audioSource.Stop(); //avoids audiosource from starting to play automatically
- //
+        audioSource.spatialBlend = 0; 
+        audioSource.Stop(); 
+        
         mainStore = new UInt32[mainStoreSize];
         initialLoadBuffer = new UInt32[6];
 
@@ -195,17 +197,17 @@ void Start()
                     initialLoadBuffer[initialLoadChars] = a;
                     if (initialLoadChars == 5) 
                     {
-                        mainStore[initialLoadCounter] = 
+                        mainStore[initialLoadCounter & (mainStoreSize - 1)] = 
                             (initialLoadBuffer[0] << 12) 
                             | (initialLoadBuffer[1] << 6) 
                             | initialLoadBuffer[2];
-                        mainStore[initialLoadCounter + 1] = 
+                        mainStore[(initialLoadCounter + 1)  & (mainStoreSize - 1)] = 
                             (initialLoadBuffer[3] << 12)
                             | (initialLoadBuffer[4] << 6) 
                             | initialLoadBuffer[5] ;
                         regA = (regA ^ 
-                            (((UInt64) mainStore[initialLoadCounter] << 18) | 
-                              (UInt64) mainStore[initialLoadCounter + 1]));
+                            (((UInt64) mainStore[initialLoadCounter & (mainStoreSize - 1)] << 18) | 
+                              (UInt64) mainStore[(initialLoadCounter + 1)  & (mainStoreSize - 1)]));
                         initialLoadCounter += 2;
                     }
                 }
@@ -258,7 +260,7 @@ void Start()
 
     private UInt64 readShortWord(UInt64 addr)
     {
-        UInt64 w = (UInt64) mainStore[addr];
+        UInt64 w = (UInt64) mainStore[addr  & (mainStoreSize - 1)];
         return w;
     }
 
@@ -266,7 +268,7 @@ void Start()
     {
         UInt64 a = ((addr+1) / 2)*2; // OK?
         UInt64 w = 
-            ((((UInt64) mainStore[a]) << 18) | ((UInt64) mainStore[a+1]));
+            ((((UInt64) mainStore[a  & (mainStoreSize - 1)]) << 18) | ((UInt64) mainStore[(a+1)  & (mainStoreSize - 1)]));
         return w;
     }
 
@@ -294,15 +296,15 @@ void Start()
 
     private void storeShortWord(UInt64 addr, UInt64 data)
     {
-        mainStore[addr] = (UInt32) data;
+        mainStore[addr  & (mainStoreSize - 1)] = (UInt32) data;
         regX = readShortWord(regK); // might have been rewritten
     }
 
     private void storeLongWord(UInt64 addr, UInt64 data)
     {
         UInt64 a = ((addr+1)/2)*2;
-        mainStore[a] = (UInt32) (data >> 18);
-        mainStore[a + 1] = (UInt32) (data & (bit_18 - 1));
+        mainStore[a  & (mainStoreSize - 1)] = (UInt32) (data >> 18);
+        mainStore[(a + 1)  & (mainStoreSize - 1)] = (UInt32) (data & (bit_18 - 1));
 
         regX = readShortWord(regK); // might have been rewritten
     }
@@ -744,7 +746,6 @@ void Start()
         }
     }
 
-   
     void OnAudioFilterRead(float[] data, int channels)
     {
         for(int i = 0; i < data.Length; i+= channels)
