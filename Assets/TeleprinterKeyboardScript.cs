@@ -12,6 +12,9 @@ public class TeleprinterKeyboardScript : MonoBehaviour
 //    private const int charWidth = 12, charHeight = 24;
     private const int charWidth = 16, charHeight = 32;
 
+    [SerializeField]
+    private GlobalVariablesScript globalVariablesScript;
+
     private GameObject[] keyboard;
 
     const float KeyW = 0.02f, KeyH = 0.02f, KeyY = 0.0f, // KeyY = 0.0125f,
@@ -168,19 +171,21 @@ public class TeleprinterKeyboardScript : MonoBehaviour
             return;
         }
 
-        string s = Input.inputString;
-        if (s.Length > 0)
-        {
-            char ch = s[0];
-            for (int k = 0; k < keyboard.Length; k++)
+        if (!globalVariablesScript.keyIsDisabled()) {
+            string s = Input.inputString;
+            if (s.Length > 0)
             {
-                if (!isShifted && keyCharShift0[k] == ch) {
-                    pressedKeyDown(k);
-                    c = (byte)keyShift0[k];
-                }
-                if (isShifted && keyCharShift1[k] == ch) {
-                    pressedKeyDown(k);
-                    c = (byte)keyShift1[k];
+                char ch = s[0];
+                for (int k = 0; k < keyboard.Length; k++)
+                {
+                    if (!isShifted && keyCharShift0[k] == ch) {
+                        pressedKeyDown(k);
+                        c = (byte)keyShift0[k];
+                    }
+                    if (isShifted && keyCharShift1[k] == ch) {
+                        pressedKeyDown(k);
+                        c = (byte)keyShift1[k];
+                    }
                 }
             }
         }

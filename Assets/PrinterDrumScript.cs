@@ -156,7 +156,7 @@ public class PrinterDrumScript : MonoBehaviour
             currentPosition++;
             isRotated = true;
             setCursor();
-            for (int j = 0; j < 16 ; j++)
+            for (int j = 0; j < charHeight ; j++)
                 for (int i = 0; i < charsPerLine * charWidth; i++)
                     texture.SetPixel(charsPerLine * charWidth + horizontalMargin * 2 +  i,
                         (charsPerRoll - (currentPosition % charsPerRoll) - 1) * charHeight - j,

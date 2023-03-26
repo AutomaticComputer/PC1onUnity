@@ -2,14 +2,28 @@
 
 This is a simulator for the parametron computer PC-1 on Unity. 
 [Japanese](README_ja.md)
-
+You can try its 
+[WebGL version](https://automaticcomputer.github.io/PC1onUnity/webgl.html) on a web browser. 
 I don't think it is visually faithful. 
 The timing should be correct up to a frame interval. 
 
-New! (2021.4.18)
+  - [On parametron computer PC-1](#on-parametron-computer-pc-1)
+  - [How to use it](#how-to-use-it)
+  - [Unimplemented features](#unimplemented-features)
+  - [Acknowledgments](#acknowledgments)
+  - [Related](#related)
+
+New! (2023.3.26) 
+Added functionality to read a text file as a paper tape, 
+and to rename and delete paper tapes. 
+On WebGL version, added functionality to upload and download tapes. 
+Some bug fixes. 
+The size of the main unit is now a little closer to the real one. 
+
+(2021.4.18)
 Now you can move and resize using the touch screen. 
 
-New! (2021.4.18)
+(2021.4.18)
 Sound(only on PC and Mac), 
 according to [計算機による音楽演奏](http://parametron.blogspot.com/search/label/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%81%AB%E3%82%88%E3%82%8B%E9%9F%B3%E6%A5%BD%E6%BC%94%E5%A5%8F) by Dr. Wada. 
 See "soundtest.ptr" for an example. 

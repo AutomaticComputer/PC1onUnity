@@ -62,7 +62,7 @@ public class PrinterScript : MonoBehaviour
             }
         }
 
-        if (typeCode == 0xff && pbReadScript.isPushed())
+        if (typeCode == 0xff && punchCode == 0xff && pbReadScript.isPushed())
         {
             b = tapeReadScript.read();
             if (b != 0xff)
@@ -73,12 +73,12 @@ public class PrinterScript : MonoBehaviour
             }
         }
 
-        if (typeCode == 0xff && pbSkipScript.isPushed())
+        if (typeCode == 0xff && punchCode == 0xff && pbSkipScript.isPushed())
         {
             b = tapeReadScript.read();
         }
 
-        if (typeCode == 0xff && buttonReadScript.isOn())
+        if (typeCode == 0xff && punchCode == 0xff && buttonReadScript.isOn())
         {
             b = tapeReadScript.read();
             if (b != 0xff)
@@ -87,10 +87,10 @@ public class PrinterScript : MonoBehaviour
                 if (buttonPunchScript.isOn())
                     punchCode = b;
             }
-            else
+            if (tapeReadScript.isAtEnd()) 
             {
-//                buttonReadScript.setOn(false);
-            }
+                buttonReadScript.setOn(false);
+            } 
         }
 
         if (typeCode != 0xff)
@@ -112,6 +112,7 @@ public class PrinterScript : MonoBehaviour
             tapePunchScript.rewind();
         }
     }
+
 
     public byte read()
     {

@@ -1,7 +1,7 @@
 {
 "companyName": "AutomaticComputer",
 "productName": "PC-1 on Unity",
-"productVersion": "0.2.8",
+"productVersion": "0.2.9",
 "dataUrl": "PC1onUnity_WebGL.data.unityweb",
 "wasmCodeUrl": "PC1onUnity_WebGL.wasm.code.unityweb",
 "wasmFrameworkUrl": "PC1onUnity_WebGL.wasm.framework.unityweb",

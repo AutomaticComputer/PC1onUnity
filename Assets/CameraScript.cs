@@ -6,9 +6,8 @@ using UnityEngine.Assertions.Must;
 
 public class CameraScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     private Hashtable lastTouches; 
+    // Start is called before the first frame update
     void Start()
     {
         lastTouches = new Hashtable();
@@ -22,17 +21,17 @@ public class CameraScript : MonoBehaviour
         float depthInput = 0.0f;
 
         if (Input.GetKey(KeyCode.UpArrow))
-            verticalInput = 1.0f;
+            verticalInput = 1.5f;
         if (Input.GetKey(KeyCode.DownArrow))
-            verticalInput = -1.0f;
+            verticalInput = -1.5f;
         if (Input.GetKey(KeyCode.RightArrow))
-            horizontalInput = 1.0f;
+            horizontalInput = 1.5f;
         if (Input.GetKey(KeyCode.LeftArrow))
-            horizontalInput = -1.0f;
+            horizontalInput = -1.5f;
         if (Input.GetKey(KeyCode.PageUp))
-            depthInput = 1.0f;
+            depthInput = 1.5f;
         if (Input.GetKey(KeyCode.PageDown))
-            depthInput = -1.0f;
+            depthInput = -1.5f;
 
         transform.Translate(new Vector3(horizontalInput, verticalInput, depthInput) * Time.deltaTime * 0.2f);
 
@@ -102,8 +101,6 @@ public class CameraScript : MonoBehaviour
                     lastPos3 = Camera.main.ScreenToWorldPoint(
                         new Vector3(lastPos[0].x, lastPos[0].y, -transform.position.z));
 
-
-
                     float mag = Vector2.Distance(pos[0], pos[1])/Vector2.Distance(lastPos[0], lastPos[1]);
                     mag = Math.Min(mag, 1.25f);
                     mag = Math.Max(mag, 0.8f);
@@ -118,7 +115,6 @@ public class CameraScript : MonoBehaviour
                     y = Math.Min(lastPos3.y - pos3.y, 100.0f);
                     y = Math.Max(y, -100.0f);
                     transform.Translate(new Vector3(x, y, 0));
-
                 }
             }
         }

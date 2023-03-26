@@ -7,6 +7,7 @@ using System.Linq;
 
 public class TapeScript : MonoBehaviour
 {
+    public const int TapeEmpty = 64;
     // Start is called before the first frame update
     private Texture2D punchedTexture, texture;
 
@@ -113,7 +114,7 @@ public class TapeScript : MonoBehaviour
             if (i < charsPerRoll - charsBeforeCurrent && i < length)
                 b = data[i];
             else
-                b = 64;
+                b = TapeEmpty;
 
             texture.SetPixels(0, i * 8, 56, 8, punchedTexture.GetPixels(0, b * 8, 56, 8));
         }
@@ -160,14 +161,14 @@ public class TapeScript : MonoBehaviour
         if (currentPosition >= charsBeforeCurrent)
         {
             int p = currentPosition + charsPerRoll - charsBeforeCurrent;
-            int c = 64;
+            int c = TapeEmpty;
             if (p < length)
                 c = data[p];
             texture.SetPixels(0, (p % charsPerRoll) * 8, 56, 8, punchedTexture.GetPixels(0, c * 8, 56, 8));
         }
         isDrawn = true;
 
-        if (currentPosition == length)
+        if (isAtEnd())
             length++;
         currentPosition++;
 
@@ -194,7 +195,7 @@ public class TapeScript : MonoBehaviour
         if (currentPosition >= charsBeforeCurrent)
             b = data[currentPosition - charsBeforeCurrent];
         else
-            b = 64;
+            b = TapeEmpty;
         texture.SetPixels(0, p * 8, 56, 8, punchedTexture.GetPixels(0, b * 8, 56, 8));
         isDrawn = true;
     }
@@ -207,6 +208,10 @@ public class TapeScript : MonoBehaviour
         {
             return 0xff;
         }
+
+        if (isAtEnd())
+            return 0xff;
+
         if (timeLeft < readTime)
         {
             readBusy = true;
@@ -217,14 +222,12 @@ public class TapeScript : MonoBehaviour
             timeLeft -= readTime;
         }
 
-        if (currentPosition >= length)
-            return 0xff;
 
         b = data[currentPosition];
 //        if (currentPosition >= charsBeforeCurrent)
         {
             int p = currentPosition + charsPerRoll - charsBeforeCurrent;
-            byte c = 64;
+            byte c = TapeEmpty;
             if (p >= 0 && p < length)
                 c = data[p];
             texture.SetPixels(0, (p % charsPerRoll) * 8, 56, 8, punchedTexture.GetPixels(0, c * 8, 56, 8));
@@ -240,15 +243,20 @@ public class TapeScript : MonoBehaviour
     }
 
 
+    public bool isAtEnd() 
+    {
+        return currentPosition >= length; 
+    }
+
     public void skip()
     {
-        if (currentPosition >= length)
+        if (isAtEnd())
             return;
 
 //        if (currentPosition >= charsBeforeCurrent)
         {
             int p = currentPosition + charsPerRoll - charsBeforeCurrent;
-            byte c = 64;
+            byte c = TapeEmpty;
             if (p >= 0 && p < length)
                 c = data[p];
             texture.SetPixels(0, (p % charsPerRoll) * 8, 56, 8, punchedTexture.GetPixels(0, c * 8, 56, 8));
@@ -283,6 +291,21 @@ public class TapeScript : MonoBehaviour
         isDrawn = false;
     }
 
+    public void readByteArray(byte[] b)
+    {
+        length = b.Length;
+        for (int i = 0; i < length; i++)
+            data[i] = b[i];
+
+        for (int i = length; i < maxLength; i++)
+            data[i] = 0;
+        currentPosition = 0;
+
+        drawAll();
+
+        isDrawn = false;
+    }
+
     public byte[] getData()
     {
         byte[] value = new byte[length];
@@ -293,7 +316,7 @@ public class TapeScript : MonoBehaviour
 
     public bool isRBusy()
     {
-        return (currentPosition >= length);
+        return isAtEnd();
     }
 
     public void setFast(bool b)

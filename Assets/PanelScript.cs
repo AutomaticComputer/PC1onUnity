@@ -28,7 +28,7 @@ public class PanelScript : MonoBehaviour
             {
                 registerIndicators[i, j] = Instantiate(indicatorPrefab, 
                     transform.position + 
-                    new Vector3(-0.16f + (j +(j/9)) * 0.01f, 0.05f- i * 0.02f, -0.05f), 
+                    new Vector3(-0.26f + (j +(j/9)) * 0.015f, 0.03f- i * 0.03f, -0.05f), 
                     Quaternion.identity);
                 registerIndicators[i, j].GetComponent<IndicatorScript>().setState(false);
             }
@@ -38,7 +38,7 @@ public class PanelScript : MonoBehaviour
         {
             orIndicators[j] = Instantiate(indicatorPrefab, 
                 transform.position + 
-                new Vector3(-0.16f + (j +(j/6)) * 0.01f, -0.02f, -0.05f),
+                new Vector3(-0.26f + (j +(j/6)) * 0.015f, -0.09f, -0.05f),
                 Quaternion.identity);
             orIndicators[j].GetComponent<IndicatorScript>().setState(false);
         }
@@ -47,20 +47,20 @@ public class PanelScript : MonoBehaviour
         {
             sccIndicators[j] = Instantiate(indicatorPrefab, 
                 transform.position + 
-                new Vector3(-0.16f + j * 0.01f, -0.04f, -0.05f),
+                new Vector3(-0.26f + j * 0.015f, -0.12f, -0.05f),
                 Quaternion.identity);
             sccIndicators[j].GetComponent<IndicatorScript>().setState(false);
         }
         freeRunIndicator = Instantiate(indicatorPrefab, 
                 transform.position + 
-                new Vector3(0.188f, -0.06f, -0.05f),
+                new Vector3(0.288f, -0.138f, -0.05f),
                 Quaternion.identity);
         freeRunIndicator.GetComponent<IndicatorScript>().setState(false);
 #if UNITY_WEBGL
 #else
         soundIndicator = Instantiate(indicatorPrefab, 
                 transform.position + 
-                new Vector3(0.1f, -0.06f, -0.05f),
+                new Vector3(0.199f, -0.135f, -0.05f),
                 Quaternion.identity);
         soundIndicator.GetComponent<IndicatorScript>().setState(false);
 #endif
